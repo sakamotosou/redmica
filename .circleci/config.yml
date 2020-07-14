@@ -11,8 +11,7 @@ commands:
   setup_environment:
     description: "setup environment"
     steps:
-      - checkout
-          path: ~/circleci_files
+      - checkout: ~/circleci_files
       - run: ls
       - run: ls circleci_files/
       - run: apt-get update
