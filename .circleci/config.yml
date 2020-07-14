@@ -73,7 +73,6 @@ commands:
   test_redmine_utc:
     description: "test redmine utc"
     steps:
-      - checkout
       - run:
           working_directory: redmine
           command: |
@@ -88,7 +87,6 @@ commands:
   test_redmine_tokyo:
     description: "test redmine tokyo"
     steps:
-      - checkout
       - run:
           working_directory: redmine
           command: |
@@ -103,7 +101,6 @@ commands:
   test_redmine_samoa:
     description: "test redmine samoa"
     steps:
-      - checkout
       - run:
           working_directory: redmine
           command: |
@@ -118,7 +115,6 @@ commands:
   test_redmine_issue_templates:
     description: "test redmine_issue_templates"
     steps:
-      - checkout
       - run:
           working_directory: redmine
           command: |
