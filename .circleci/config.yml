@@ -45,15 +45,13 @@ commands:
     description: "build MyRedmine"
     steps:
       - run: ls
-      - run: cp ./circleci_files/database.yml ./lib/redmine/config/database.yml
+      - run: cp ./circleci_files/database.yml ./config/database.yml
       - run:
           working_directory: lib/redmine
           command: |
-            cat ./config/database.yml
-            cat ./Gemfile
             bundle install
-            cp ../circleci_files/change_time_zone.sh change_time_zone.sh
-            cp ../circleci_files/skip_test.rb skip_test.rb
+            cp ../../circleci_files/change_time_zone.sh change_time_zone.sh
+            cp ../../circleci_files/skip_test.rb skip_test.rb
             rm -rf plugins/redmine_issue_templates
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/redmine_issue_templates
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
