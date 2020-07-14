@@ -44,7 +44,7 @@ commands:
   build_myredmine:
     description: "build MyRedmine"
     steps:
-      - checkout
+      - ls
       - run: rm -rf redmine
       - run: svn co http://svn.redmine.org/redmine/trunk redmine
       - run: cp ./circleci_files/database.yml ./redmine/config/database.yml
