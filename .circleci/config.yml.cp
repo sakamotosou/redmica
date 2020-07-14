@@ -45,9 +45,11 @@ commands:
     description: "build MyRedmine"
     steps:
       - run: ls
-      - run: cp ./circleci_files/database.yml ./lib/redmine/config/database.yml
+      - run: rm -rf redmine
+      - run: svn co http://svn.redmine.org/redmine/trunk redmine
+      - run: cp ./circleci_files/database.yml ./redmine/config/database.yml
       - run:
-          working_directory: lib/redmine
+          working_directory: redmine
           command: |
             cat ./config/database.yml
             cat ./Gemfile
@@ -73,8 +75,9 @@ commands:
   test_redmine_utc:
     description: "test redmine utc"
     steps:
+      - checkout
       - run:
-          working_directory: lib/redmine
+          working_directory: redmine
           command: |
             touch build_result.txt
             sh change_time_zone.sh UTC > build_result.txt
@@ -87,8 +90,9 @@ commands:
   test_redmine_tokyo:
     description: "test redmine tokyo"
     steps:
+      - checkout
       - run:
-          working_directory: lib/redmine
+          working_directory: redmine
           command: |
             ruby skip_test.rb TOKYO_SKIP_TESTS
             sh change_time_zone.sh Tokyo > build_result.txt
@@ -101,8 +105,9 @@ commands:
   test_redmine_samoa:
     description: "test redmine samoa"
     steps:
+      - checkout
       - run:
-          working_directory: lib/redmine
+          working_directory: redmine
           command: |
             ruby skip_test.rb SAMOA_SKIP_TESTS
             sh change_time_zone.sh "American Samoa" > build_result.txt
@@ -115,8 +120,9 @@ commands:
   test_redmine_issue_templates:
     description: "test redmine_issue_templates"
     steps:
+      - checkout
       - run:
-          working_directory: lib/redmine
+          working_directory: redmine
           command: |
             bundle exec rake redmine:plugins:test NAME=redmine_issue_templates RAILS_ENV=test > build_result.txt
             cat build_result.txt
