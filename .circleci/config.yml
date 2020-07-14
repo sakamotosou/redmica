@@ -136,6 +136,7 @@ jobs:
   redmine-test:
     executor:
       name: setup
+    working_directory: ~/circleci_files
     steps:
       - setup_environment
       - build_myredmine
