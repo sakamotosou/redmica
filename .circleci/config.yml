@@ -12,6 +12,13 @@ commands:
     description: "setup environment"
     steps:
       - checkout
+      - run:
+          working_directory: lib/redmine
+          command: |
+            git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/
+            ls plugins/
+            ls plugins/lib
+            cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
       - run: ls
       - run: ls circleci_files/
       - run: apt-get update
