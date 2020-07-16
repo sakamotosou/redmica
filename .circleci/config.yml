@@ -61,6 +61,9 @@ commands:
             bundle exec rake db:migrate RAILS_ENV=test
             bundle exec rake test:scm:setup:all
             bundle exec rake test:scm:update
+      - run:
+          working_directory: lib/plugins
+          command: |
             bundle exec rake redmine:plugins:migrate NAME=redmine_issue_templates RAILS_ENV=test
             #bundle exec rake redmine:plugins:migrate NAME=redmine-view-customize RAILS_ENV=test
             #bundle exec rake redmine:plugins:migrate NAME=redmine_vividtone_my_page_blocks RAILS_ENV=test
