@@ -12,15 +12,6 @@ commands:
     description: "setup environment"
     steps:
       - checkout
-      - run:
-          working_directory: lib/redmine
-          command: |
-            git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/
-            ls plugins/
-            ls plugins/lib
-            cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
-      - run: ls
-      - run: ls circleci_files/
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
       - run: apt-get install -y apache2 apache2-dev libapr1-dev libaprutil1-dev
@@ -61,6 +52,7 @@ commands:
             cp ../../circleci_files/skip_test.rb skip_test.rb
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/
             ls plugins/
+            ls plugins/lib/
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
             rm -rf plugins/view_customize
             git clone https://github.com/onozaty/redmine-view-customize plugins/
