@@ -53,7 +53,7 @@ commands:
             mkdir plugins/
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/redmine_issue_templates
             ls plugins/redmine_issue_templates/
-            cp /plugins/redmine_issue_templates/Gemfile.local ../plugins/redmine_issue_templates/Gemfile
+            cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
             #git clone https://github.com/onozaty/redmine-view-customize ../plugins/redmine-view-customize
             #git clone https://github.com/vividtone/redmine_vividtone_my_page_blocks ../plugins/redmine_vividtone_my_page_blocks
             ls ../plugins/
