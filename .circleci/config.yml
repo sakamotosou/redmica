@@ -50,7 +50,6 @@ commands:
             bundle install
             cp ../../circleci_files/change_time_zone.sh change_time_zone.sh
             cp ../../circleci_files/skip_test.rb skip_test.rb
-            mkdir plugins/
             git clone https://github.com/akiko-pusu/redmine_issue_templates ../plugins/
             ls ../plugins/
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
