@@ -114,7 +114,6 @@ jobs:
       - test_redmine_utc
       - test_redmine_tokyo
       - test_redmine_samoa
-      - test_redmine_issue_templates
 workflows:
   normal:
     jobs:
