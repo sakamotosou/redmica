@@ -5,5 +5,3 @@ Object.const_get(ARGV[0].upcase).each do |path, test_names|
      content = File.read("#{TEST_DIRECTORY_PATH}/#{path}").gsub(/def setup\n/, "def setup\nskip \'SKIP\' if #{test_names}.include?(self.name)\n")
 File.write("#{TEST_DIRECTORY_PATH}/#{path}", content)
 end
-
-
