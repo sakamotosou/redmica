@@ -72,8 +72,9 @@ commands:
           working_directory: lib/redmine
           command: |
             touch build_result.txt
-            #sh change_time_zone.sh UTC > build_result.txt
-            #cat build_result.txt
+            sh change_time_zone.sh UTC > build_result.txt
+            cat build_result.txt
+            cat ../../plugins/redmine_issue_templates/spec/rails_helper.rb
       - run:
           command: |
             echo "fail test-utc"
