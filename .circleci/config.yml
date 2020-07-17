@@ -51,7 +51,6 @@ commands:
             cp ../../circleci_files/skip_test.rb skip_test.rb
             git clone https://github.com/akiko-pusu/redmine_issue_templates ../../plugins/redmine_issue_templates
             cp ../../plugins/redmine_issue_templates/Gemfile.local ../../plugins/redmine_issue_templates/Gemfile
-            #git clone https://github.com/onozaty/redmine-view-customize ../../plugins/redmine-view-customize
             git clone https://github.com/onozaty/redmine-view-customize ../../plugins/view_customize
             git clone https://github.com/vividtone/redmine_vividtone_my_page_blocks ../../plugins/redmine_vividtone_my_page_blocks
             bundle install
@@ -60,9 +59,7 @@ commands:
             bundle exec rake db:migrate RAILS_ENV=test
             bundle exec rake test:scm:setup:all
             bundle exec rake test:scm:update
-            echo "start plugins migration"
             bundle exec rake redmine:plugins:migrate NAME=redmine_issue_templates RAILS_ENV=test
-            #bundle exec rake redmine:plugins:migrate NAME=redmine-view-customize RAILS_ENV=test
             bundle exec rake redmine:plugins:migrate NAME=view_customize RAILS_ENV=test
             bundle exec rake redmine:plugins:migrate NAME=redmine_vividtone_my_page_blocks RAILS_ENV=test
   test_redmine_utc:
@@ -74,7 +71,6 @@ commands:
             touch build_result.txt
             sh change_time_zone.sh UTC > build_result.txt
             cat build_result.txt
-            cat ../../plugins/redmine_issue_templates/spec/rails_helper.rb
       - run:
           command: |
             echo "fail test-utc"
@@ -108,20 +104,6 @@ commands:
             echo "fail test-american_samoa"
             cat build_result.txt
           when: on_fail
-  test_redmine_issue_templates:
-    description: "test redmine_issue_templates"
-    steps:
-      - run:
-          working_directory: lib/redmine
-          command: |
-            bundle exec rake redmine:plugins:test NAME=redmine_issue_templates RAILS_ENV=test > build_result.txt
-            cat build_result.txt
-            sed -i "/Options.new/s/$/(args: [\'--headless\', \'--no-sandbox\', \'--disable-gpu\', \'--window-size=1280,800\'])/g" plugins/redmine_issue_templates/spec/rails_helper.rb
-      - run:
-          command: |
-            echo "fail test-redmine_issue_templates"
-            cat build_result.txt
-          when: on_fail
 jobs:
   redmine-test:
     executor:
@@ -137,6 +119,3 @@ workflows:
   normal:
     jobs:
       - redmine-test
-
-
-
