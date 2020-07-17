@@ -72,8 +72,8 @@ commands:
           working_directory: lib/redmine
           command: |
             touch build_result.txt
-            sh change_time_zone.sh UTC > build_result.txt
-            cat build_result.txt
+            #sh change_time_zone.sh UTC > build_result.txt
+            #cat build_result.txt
       - run:
           command: |
             echo "fail test-utc"
@@ -86,7 +86,7 @@ commands:
       - run:
           working_directory: lib/redmine
           command: |
-            #ruby skip_test.rb TOKYO_SKIP_TESTS
+            ruby skip_test.rb TOKYO_SKIP_TESTS
             sh change_time_zone.sh Tokyo > build_result.txt
             cat build_result.txt
       - run:
