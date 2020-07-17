@@ -82,10 +82,11 @@ commands:
   test_redmine_tokyo:
     description: "test redmine tokyo"
     steps:
+      - run: ruby skip_test.rb TOKYO_SKIP_TESTS
       - run:
           working_directory: lib/redmine
           command: |
-            ruby skip_test.rb TOKYO_SKIP_TESTS
+            #ruby skip_test.rb TOKYO_SKIP_TESTS
             sh change_time_zone.sh Tokyo > build_result.txt
             cat build_result.txt
       - run:
