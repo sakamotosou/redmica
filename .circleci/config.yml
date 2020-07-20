@@ -15,7 +15,7 @@ commands:
       - run: mkdir -p /usr/share/man/man1
       - run: mkdir -p /usr/share/man/man7
       - run: apt-get update
-      - run: apt-get install -y postgresql postgresql-client
+      - run: apt-get install -y postgresql postgresql-client postgresql-server-dev-9.6
       - run: psql --version
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
