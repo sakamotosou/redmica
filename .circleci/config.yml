@@ -19,6 +19,7 @@ commands:
       #- run: lsb_release -sc
       #- run: cat /etc/apt/sources.list.d/ros-latest.list
       #- run: apt install wget ca-certificates
+      - run: apt-get install wget
       - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
       #- run: apt-key list
       - run: apt-get update
