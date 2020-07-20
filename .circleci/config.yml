@@ -11,6 +11,8 @@ commands:
   setup_environment:
     description: "setup environment"
     steps:
+      - run: mkdir -p /usr/share/man/man1
+      - run: mkdir -p /usr/share/man/man7
       - run: apt-get update
       - run: apt-get install -y postgresql postgresql-client
       - run: psql --version
