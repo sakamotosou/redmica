@@ -49,6 +49,7 @@ commands:
     description: "build MyRedmine"
     steps:
       #- run: cp ./circleci_files/database.yml ./config/database.yml
+      - run: cp ./circleci_files/database_postgres.yml ./config/database.yml
       - run:
           working_directory: lib/redmine
           command: |
