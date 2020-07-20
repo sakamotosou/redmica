@@ -15,6 +15,7 @@ commands:
       - run: apt-get update
       - run: cat /etc/debian_version
       - run: echo deb http://apt.postgresql.org/pub/repos/apt/stretch-pgdg main > /etc/apt/sources.list.d/pgdg.list
+      - run: lsb_release -sc
       - run: cat /etc/apt/sources.list.d/ros-latest.list
       - run: apt install wget ca-certificates
       - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
