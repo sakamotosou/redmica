@@ -12,6 +12,8 @@ commands:
     description: "setup environment"
     steps:
       - checkout
+      - run: ls /etc/apt/sources.list.d/pgdg.list
+      - run: cat /etc/apt/sources.list.d/pgdg.list
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
       - run: apt-get install -y apache2 apache2-dev libapr1-dev libaprutil1-dev
