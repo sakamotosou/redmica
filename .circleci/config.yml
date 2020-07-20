@@ -15,13 +15,14 @@ commands:
       - run: apt-get update
       - run: cat /etc/debian_version
       - run: echo deb http://apt.postgresql.org/pub/repos/apt/stretch-pgdg main > /etc/apt/sources.list.d/pgdg.list
-      - run: apt install lsb-release
-      - run: lsb_release -sc
-      - run: cat /etc/apt/sources.list.d/ros-latest.list
-      - run: apt install wget ca-certificates
+      #- run: apt install lsb-release
+      #- run: lsb_release -sc
+      #- run: cat /etc/apt/sources.list.d/ros-latest.list
+      #- run: apt install wget ca-certificates
       - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-      - run: apt-key list
+      #- run: apt-key list
       - run: apt-get update
+      - run: apt-get install postgresql
       - run: apt-get upgrade
       - run: apt-get install postgresql-10
       - run: psql --version
