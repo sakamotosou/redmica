@@ -12,7 +12,7 @@ commands:
     description: "setup environment"
     steps:
       - run: apt-get update
-      - run: apt-get install -y postgresql
+      - run: apt-get install -y postgresql postgresql-client-9.6
       - run: psql --version
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
