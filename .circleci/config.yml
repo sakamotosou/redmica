@@ -54,6 +54,7 @@ commands:
             bundle install
             bundle exec rails db:environment:set RAILS_ENV=test
             bundle exec rake generate_secret_token
+            bundle exec rake db:create:all RAILS_ENV=test
             bundle exec rake db:migrate RAILS_ENV=test
             bundle exec rake test:scm:setup:all
             bundle exec rake test:scm:update
