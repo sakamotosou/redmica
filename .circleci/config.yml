@@ -11,7 +11,6 @@ commands:
   setup_environment:
     description: "setup environment"
     steps:
-      - checkout
       - run: apt-get update
       - run: apt-get install -y curl ca-certificates gnupg
       - run: curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add-
