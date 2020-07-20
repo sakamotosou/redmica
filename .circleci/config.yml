@@ -26,15 +26,6 @@ commands:
       # postgres
       - run: /etc/init.d/postgresql start
       - run: su - postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password 'postgres';\""
-      - run: { echo "test:"; \
-                echo "  adapter: postgresql"; \
-                echo "  database: redmine"; \
-                echo "  username: postgres"; \
-                echo "  password: postgres"; \
-                echo "  host: localhost"; \
-                echo "  encoding: utf8"; \
-                echo "  template: template0";
-                } | tee redmine/config/database.yml;
       - run: apt-get install -y curl unzip
       - run: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
       - run: echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
