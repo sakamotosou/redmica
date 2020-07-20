@@ -12,6 +12,7 @@ commands:
     description: "setup environment"
     steps:
       - checkout
+      - run: cat /etc/debian_version
       - run: ls /etc/apt/sources.list.d/pgdg.list
       - run: cat /etc/apt/sources.list.d/pgdg.list
       - run: apt-get update
