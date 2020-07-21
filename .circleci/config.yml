@@ -44,6 +44,9 @@ commands:
       - run:
           working_directory: lib/redmine
           command: |
+            ls
+            ls ../../
+            git branch
             git checkout stable-1.1
             cp ../../circleci_files/database_postgres.yml ../../config/database.yml
             cp ../../circleci_files/change_time_zone.sh change_time_zone.sh
