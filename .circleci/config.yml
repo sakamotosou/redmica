@@ -11,7 +11,7 @@ commands:
   setup_environment:
     description: "setup environment"
     steps:
-      - checkout
+      #- checkout
       - run: mkdir -p /usr/share/man/man1
       - run: mkdir -p /usr/share/man/man7
       - run: apt-get update
@@ -45,6 +45,7 @@ commands:
           working_directory: lib/redmine
           command: |
             git checkout stable-1.1
+            checkout
             cp ../../circleci_files/change_time_zone.sh change_time_zone.sh
             cp ../../circleci_files/skip_test.rb skip_test.rb
             git clone https://github.com/akiko-pusu/redmine_issue_templates ../../plugins/redmine_issue_templates
