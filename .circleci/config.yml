@@ -40,10 +40,10 @@ commands:
     description: "build MyRedmine"
     steps:
       #- run: cp ./circleci_files/database.yml ./config/database.yml
+      - checkout
       - run:
           working_directory: lib/redmine
           command: |
-            checkout
             git checkout stable-1.1
             cp ../circleci_files/database_postgres.yml ../config/database.yml
             cp ../../circleci_files/change_time_zone.sh change_time_zone.sh
