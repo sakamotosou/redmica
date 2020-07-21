@@ -11,7 +11,7 @@ commands:
   setup_environment:
     description: "setup environment"
     steps:
-      #- checkout
+      - checkout
       - run: mkdir -p /usr/share/man/man1
       - run: mkdir -p /usr/share/man/man7
       - run: apt-get update
@@ -40,7 +40,7 @@ commands:
     description: "build MyRedmine"
     steps:
       #- run: cp ./circleci_files/database.yml ./config/database.yml
-      - checkout
+      #- checkout
       - run:
           working_directory: lib/redmine
           command: |
