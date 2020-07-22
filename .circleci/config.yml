@@ -117,7 +117,8 @@ jobs:
 workflows:
   normal:
     jobs:
-      - redmine-test:
+      - redmine-test
+      #- redmine-test:
           #filters:
             #branches:
               #only:
