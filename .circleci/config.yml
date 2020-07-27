@@ -72,6 +72,12 @@ commands:
           working_directory: lib/redmine
           command: |
             touch build_result.txt
+            ls
+            echo "ls"
+            ls ../
+            echo "ls ../"
+            ls ../../
+            echo "ls ../../"
             echo "config.time_zone = << parameters.time_zone >>" > ../../../config/additional_environment.rb
             bundle exec rails runner "p Time.current" -e test
             bundle exec rake test
