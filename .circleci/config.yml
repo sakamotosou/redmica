@@ -20,8 +20,8 @@ jobs:
       test:
         description: "test paramaters"
         type: string
-        executor:
-          name: setup
+    executor:
+      name: setup
         steps:
           - test
 workflows:
