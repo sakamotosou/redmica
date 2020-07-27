@@ -122,11 +122,15 @@ jobs:
     steps:
       - setup_environment
       - build_myredmine
-      #- test_redmine_utc:
-          #time_zone: "UTC"
+      - test_redmine_utc:
+          time_zone: "UTC"
+          skip_test: "UTC_SKIP_TESTS"
       - test_redmine_utc:
           time_zone: "Tokyo"
           skip_test: "TOKYO_SKIP_TESTS"
+      - test_redmine_utc:
+          time_zone: "American Samoa"
+          skip_test: "SAMOA_SKIP_TESTS"
 workflows:
   normal:
     jobs:
