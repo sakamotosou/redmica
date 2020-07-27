@@ -12,7 +12,7 @@ commands:
     parameters:
       to:
         type: string
-        default: "test"
+#        default: "test"
     steps:
       - run:
          command: |
@@ -22,7 +22,6 @@ jobs:
     steps:
       - test:
           to: "test paramaters"
-          type: string
 workflows:
   normal:
     jobs:
