@@ -78,7 +78,7 @@ commands:
             echo "ls ../"
             ls ../../
             echo "ls ../../"
-            echo "config.time_zone = << parameters.time_zone >>" > ../../../config/additional_environment.rb
+            echo "config.time_zone = << parameters.time_zone >>" > ../../config/additional_environment.rb
             bundle exec rails runner "p Time.current" -e test
             bundle exec rake test
             bundle exec rake redmine:plugins:test NAME=redmine_issue_templates RAILS_ENV=test
