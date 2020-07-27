@@ -19,6 +19,8 @@ commands:
            echo << parameters.to >>
 jobs:
   redmine-test:
+    executor:
+      name: setup
     steps:
       - test:
           to: "test paramaters"
