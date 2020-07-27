@@ -8,22 +8,19 @@ executors:
         DEBIAN_FRONTEND: noninteractive
         RUBYOPT: -EUTF-8
 commands:
-  test:    
+  test:
+    parameters:
+      to:
+        type: string
     steps:
       - run:
-         working_directory: lib/redmine
          command: |
-           echo "<< parameters.test >>"
+           echo << parameters.to >>
 jobs:
   redmine-test:
-    parameters:
-      test:
-        description: "test paramaters"
-        type: string
-    executor:
-      name: setup
-        steps:
-          - test
+    steps:
+      - test:
+          to: "test paramaters"
 workflows:
   normal:
     jobs:
