@@ -12,6 +12,7 @@ commands:
     parameters:
       to:
         type: string
+        default: "test"
     steps:
       - run:
          command: |
