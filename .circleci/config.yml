@@ -56,7 +56,7 @@ commands:
       - run:
           working_directory: lib/redmine
           command: |
-            bundle install
+            cp ../../circleci_files/database.yml ../../config/database.yml
             cp ../../circleci_files/skip_test.rb skip_test.rb
             git clone https://github.com/akiko-pusu/redmine_issue_templates ../../plugins/redmine_issue_templates
             cp ../../plugins/redmine_issue_templates/Gemfile.local ../../plugins/redmine_issue_templates/Gemfile
