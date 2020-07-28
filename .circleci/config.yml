@@ -22,7 +22,7 @@ commands:
       - run: mkdir -p /usr/share/man/man1
       - run: mkdir -p /usr/share/man/man7
       - run: apt-get update
-      - run: apt-get install -y postgresql postgresql-client postgresql-server-dev-9.6
+      - run: apt-get install -y postgresql postgresql-client postgresql-server-dev-10
       - run: /etc/init.d/postgresql start
       - run: su - postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password 'postgres';\"" 
       - run: apt-get install -y curl unzip
