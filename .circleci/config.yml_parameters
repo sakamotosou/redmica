@@ -1,0 +1,29 @@
+version: 2.1
+
+executors:
+  setup:
+    docker:
+      - image: ruby:2.6-slim-stretch
+    environment:
+        DEBIAN_FRONTEND: noninteractive
+        RUBYOPT: -EUTF-8
+commands:
+  test:
+    parameters:
+      to:
+        type: string
+    steps:
+      - run:
+         command: |
+           echo << parameters.to >>
+jobs:
+  redmine-test:
+    executor:
+      name: setup
+    steps:
+      - test:
+          to: "testtesttestetetetet"
+workflows:
+  normal:
+    jobs:
+      - redmine-test

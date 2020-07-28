@@ -11,13 +11,6 @@ commands:
   setup_environment:
     description: "setup environment" 
     steps:
-      - run: apt-get update
-      - run: apt-get install -y wget sudo
-      - run: echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' >> /etc/apt/sources.list.d/pgdg.list
-      - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-10
-      - run: postgres --version
       - checkout
       - run: apt-get update
       - run: apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
@@ -25,13 +18,17 @@ commands:
       - run: apt-get install -y imagemagick libmagick++-dev
       - run: apt-get install -y cvs mercurial subversion git bzr
       - run: apt-get install -y debconf-utils tzdata wget
-      # postgres
-      - run: mkdir -p /usr/share/man/man1
-      - run: mkdir -p /usr/share/man/man7
+      - run: echo 'mysql-server mysql-server/root_password password redmine' | debconf-set-selections
+      - run: echo 'mysql-server mysql-server/root_password_again password redmine' | debconf-set-selections
+      - run: wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb
+      - run: apt install -y ./mysql-apt-config_0.8.9-1_all.deb
       - run: apt-get update
-      - run: apt-get install -y postgresql postgresql-client postgresql-server-dev-10
-      - run: /etc/init.d/postgresql start
-      - run: su - postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password 'postgres';\"" 
+      - run: apt-get install -y --allow-unauthenticated mysql-community-server default-libmysqlclient-dev
+      - run: /etc/init.d/mysql start
+      - run: mysql -u root -predmine -e "CREATE DATABASE redmine CHARACTER SET utf8mb4;" 
+      - run: mysql -u root -predmine -e "CREATE USER 'redmine'@'localhost' IDENTIFIED BY 'redmine';" 
+      - run: mysql -u root -predmine -e "GRANT ALL PRIVILEGES ON redmine.* TO 'redmine'@'localhost';" 
+      - run: mysql -u root -predmine -e "FLUSH PRIVILEGES;" 
       - run: apt-get install -y curl unzip
       - run: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
       - run: echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
@@ -50,6 +47,7 @@ commands:
           working_directory: lib/redmine
           command: |
             bundle install
+            cp ../../circleci_files/change_time_zone.sh change_time_zone.sh
             cp ../../circleci_files/skip_test.rb skip_test.rb
             git clone https://github.com/akiko-pusu/redmine_issue_templates ../../plugins/redmine_issue_templates
             cp ../../plugins/redmine_issue_templates/Gemfile.local ../../plugins/redmine_issue_templates/Gemfile
@@ -64,31 +62,60 @@ commands:
             bundle exec rake redmine:plugins:migrate NAME=redmine_issue_templates RAILS_ENV=test
             bundle exec rake redmine:plugins:migrate NAME=view_customize RAILS_ENV=test
             bundle exec rake redmine:plugins:migrate NAME=redmine_vividtone_my_page_blocks RAILS_ENV=test
-  test_redmine:
-    parameters:
-      time_zone:
-        type: string
-      skip_test:
-        type: string
+  test_redmine_utc:
     description: "test redmine utc" 
     steps:
       - run:
           working_directory: lib/redmine
           command: |
             touch build_result.txt
-            ruby skip_test.rb << parameters.skip_test >>
-            echo "config.time_zone = '<< parameters.time_zone >>'" > ../../config/additional_environment.rb
-            bundle exec rails runner "p Time.current" -e test
-            bundle exec rake test
-            bundle exec rake redmine:plugins:test NAME=redmine_issue_templates RAILS_ENV=test
-            cp ../../circleci_files/redmine_issue_templates-rails_helper.rb ../../plugins/redmine_issue_templates/spec/rails_helper.rb
-            DRIVER=headless RAILS_ENV=test bundle exec rspec -I ../../plugins/redmine_issue_templates/spec
+            sh change_time_zone.sh UTC > build_result.txt
             cat build_result.txt
       - run:
           command: |
             echo "fail test-utc" 
             cat build_result.txt
           when: on_fail
+  test_redmine_tokyo:
+    description: "test redmine tokyo" 
+    steps:
+      - run:
+          working_directory: lib/redmine
+          command: |
+            ruby skip_test.rb TOKYO_SKIP_TESTS
+            sh change_time_zone.sh Tokyo > build_result.txt
+            cat build_result.txt
+      - run:
+          command: |
+            echo "fail test-tokyo" 
+            cat build_result.txt
+          when: on_fail
+  test_redmine_samoa:
+    description: "test redmine samoa" 
+    steps:
+      - run:
+          working_directory: lib/redmine
+          command: |
+            ruby skip_test.rb SAMOA_SKIP_TESTS
+            sh change_time_zone.sh "American Samoa" > build_result.txt
+            cat build_result.txt
+      - run:
+          command: |
+            echo "fail test-american_samoa" 
+            cat build_result.txt
+          when: on_fail
+  change_time_zone:
+    steps:
+      - run:
+         working_directory: lib/redmine
+         command: |
+           echo "config.time_zone = '${VALUE}'" > ../lib/redmine/config/additional_environment.rb
+           bundle exec rails runner "p Time.current" -e test
+           bundle exec rake test
+           bundle exec rake redmine:plugins:test NAME=redmine_issue_templates RAILS_ENV=test
+           cp ../../circleci_files/redmine_issue_templates-rails_helper.rb ../../plugins/redmine_issue_templates/spec/rails_helper.rb
+           DRIVER=headless RAILS_ENV=test bundle exec rspec -I ../../plugins/redmine_issue_templates/spec
+           cat build_result.txt
 jobs:
   redmine-test:
     executor:
@@ -96,16 +123,16 @@ jobs:
     steps:
       - setup_environment
       - build_myredmine
-      - test_redmine:
-          time_zone: "UTC"
-          skip_test: "UTC_SKIP_TESTS"
-      #- test_redmine:
-          #time_zone: "Tokyo"
-          #skip_test: "TOKYO_SKIP_TESTS"
-      #- test_redmine:
-          #time_zone: "American Samoa"
-          #skip_test: "SAMOA_SKIP_TESTS"
+      - test_redmine_utc
+      - test_redmine_tokyo
+      - test_redmine_samoa
 workflows:
   normal:
     jobs:
-      - redmine-test
+      - redmine-test:
+          filters:
+            branches:
+              only:
+                - master
+                - stable-1.1
+                - stable-1.0
