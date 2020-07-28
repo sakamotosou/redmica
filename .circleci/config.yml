@@ -23,7 +23,7 @@ commands:
       - run: apt-get update
       #- run: apt-get -y upgrade
       #- run: apt-get install -y libicu55 libpq5 libssl1.0.0
-      - run: apt-get install -y postgresql-client-10 postgresql-10
+      - run: apt-get install -y postgresql-client-10 postgresql-10 postgresql-server-dev-10
       - run: psql --version
       - checkout
       - run: apt-get update
