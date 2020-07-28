@@ -19,7 +19,7 @@ commands:
       # libicu55 install
       - run: add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
       - run: apt-get update
-      - run: apt-get install -y libicu55 libpq5
+      - run: apt-get install -y libicu55 libpq5 libssl1.0.0
       - run: apt-get install -y postgresql-client-10 postgresql-10
       - run: postgres --version
       - checkout
