@@ -62,7 +62,7 @@ commands:
             bundle exec rake redmine:plugins:migrate NAME=redmine_issue_templates RAILS_ENV=test
             bundle exec rake redmine:plugins:migrate NAME=view_customize RAILS_ENV=test
             bundle exec rake redmine:plugins:migrate NAME=redmine_vividtone_my_page_blocks RAILS_ENV=test
-  test_redmine_utc:
+  test_redmine:
     parameters:
       time_zone:
         type: string
@@ -87,34 +87,6 @@ commands:
             echo "fail test-utc"
             cat build_result.txt
           when: on_fail
-  test_redmine_tokyo:
-    description: "test redmine tokyo"
-    steps:
-      - run:
-          working_directory: lib/redmine
-          command: |
-            ruby skip_test.rb TOKYO_SKIP_TESTS
-            sh change_time_zone.sh Tokyo > build_result.txt
-            cat build_result.txt
-      - run:
-          command: |
-            echo "fail test-tokyo"
-            cat build_result.txt
-          when: on_fail
-  test_redmine_samoa:
-    description: "test redmine samoa"
-    steps:
-      - run:
-          working_directory: lib/redmine
-          command: |
-            ruby skip_test.rb SAMOA_SKIP_TESTS
-            sh change_time_zone.sh "American Samoa" > build_result.txt
-            cat build_result.txt
-      - run:
-          command: |
-            echo "fail test-american_samoa"
-            cat build_result.txt
-          when: on_fail
 jobs:
   redmine-test:
     executor:
@@ -122,13 +94,13 @@ jobs:
     steps:
       - setup_environment
       - build_myredmine
-      - test_redmine_utc:
+      - test_redmine:
           time_zone: "UTC"
           skip_test: "UTC_SKIP_TESTS"
-      - test_redmine_utc:
+      - test_redmine:
           time_zone: "Tokyo"
           skip_test: "TOKYO_SKIP_TESTS"
-      - test_redmine_utc:
+      - test_redmine:
           time_zone: "American Samoa"
           skip_test: "SAMOA_SKIP_TESTS"
 workflows:
