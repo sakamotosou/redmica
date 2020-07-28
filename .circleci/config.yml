@@ -12,7 +12,7 @@ commands:
     description: "setup environment" 
     steps:
       - run: apt-get update
-      #- run: apt-get install -y gnupg2
+      - run: apt-get install -y gnupg2
       - run: apt-get install -y wget sudo
       - run: echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' >> /etc/apt/sources.list.d/pgdg.list
       #- run: echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' >> /etc/apt/sources.list.d/pgdg.list
