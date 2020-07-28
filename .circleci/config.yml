@@ -96,7 +96,7 @@ jobs:
       #- test_redmine:
           #time_zone: "Tokyo"
           #skip_test: "TOKYO_SKIP_TESTS"
-      #- test_redmine:
+      - test_redmine:
           #time_zone: "American Samoa"
           #skip_test: "SAMOA_SKIP_TESTS"
 workflows:
