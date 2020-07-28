@@ -18,6 +18,7 @@ commands:
       - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
       # libicu55 install
       - run: add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
+      - run: apt-key update
       - run: apt-get update
       - run: apt-get install -y libicu55 libpq5 libssl1.0.0
       - run: apt-get install -y postgresql-client-10 postgresql-10
