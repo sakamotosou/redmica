@@ -13,11 +13,14 @@ commands:
     steps:
       - run: apt-get update
       - run: apt-get install -y gnupg2
-      - run: apt-get install -y wget sudo libicu libpq libssl
+      - run: apt-get install -y wget sudo
       - run: echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' >> /etc/apt/sources.list.d/pgdg.list
       - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-      - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-client-10 postgresql-10
+      # libicu55 install
+      - run: add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
+      - run: apt-get update
+      - run: apt-get install -y libicu55 libpq5
+      - run: apt-get install -y postgresql-client-10 postgresql-10
       - run: postgres --version
       - checkout
       - run: apt-get update
