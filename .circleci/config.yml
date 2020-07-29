@@ -86,6 +86,7 @@ commands:
           working_directory: lib/redmine
           command: |
             cp ../../circleci_files/mysql_database.yml ../../config/database.yml
+            bundle install
             bundle exec rake db:reset RAILS_ENV=test
   test_redmine:
     parameters:
