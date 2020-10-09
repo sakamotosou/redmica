@@ -2,7 +2,7 @@ test:
   adapter: postgresql
   database: redmine
   username: postgres
-  password: postgres
+  #password: postgres
   #password: $POSTGRES_DATABASE
   password: $postgres_database
   host: localhost
