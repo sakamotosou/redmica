@@ -4,7 +4,7 @@ test:
   username: postgres
   #password: postgres
   #password: $POSTGRES_DATABASE
-  password: $postgres_database
+  password: <%= ENV['postgres_database'] %>
   host: localhost
   encoding: utf8
   template: template0
