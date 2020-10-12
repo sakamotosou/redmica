@@ -14,6 +14,9 @@ commands:
       - checkout
       - run:
           command: |
+            touch damii.txt
+            echo $postgres_database >> damii.txt
+            sudo cat damii.txt
             apt-get update
             apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
             apt-get install -y apache2 apache2-dev libapr1-dev libaprutil1-dev
