@@ -68,6 +68,7 @@ commands:
     steps:
       - run:
           command: |
+            cat /usr/local/var/postgres/pg_hba.conf
             cp .circleci/files/skip_test.rb lib/redmine/skip_test.rb
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/redmine_issue_templates
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
