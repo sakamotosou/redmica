@@ -3,6 +3,6 @@ test:
   database: redmine
   username: redmine
   #password: redmine
-  password: $MYSQL_DATABASE
+  password: password: <%= ENV['mysql_database'] %>
   host: localhost
   encoding: utf8
