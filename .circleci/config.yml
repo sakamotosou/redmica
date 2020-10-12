@@ -32,7 +32,8 @@ commands:
             apt-get update
             apt-get install -y postgresql-client-10 postgresql-10 postgresql-server-dev-10
             /etc/init.d/postgresql start
-            su - postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password 'postgres';\"" 
+            su - postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password 'postgres';\""
+            psql --version
   setup_mysql:
     description: "setup mysql" 
     steps:
@@ -68,7 +69,6 @@ commands:
     steps:
       - run:
           command: |
-            cat /usr/local/var/postgres/pg_hba.conf
             cp .circleci/files/skip_test.rb lib/redmine/skip_test.rb
             git clone https://github.com/akiko-pusu/redmine_issue_templates plugins/redmine_issue_templates
             cp plugins/redmine_issue_templates/Gemfile.local plugins/redmine_issue_templates/Gemfile
