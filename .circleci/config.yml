@@ -14,10 +14,6 @@ commands:
       - checkout
       - run:
           command: |
-            touch damii.txt
-            echo $postgres_database >> damii.txt
-            echo $mysql_database >> damii.txt
-            cat damii.txt
             apt-get update
             apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev libffi-dev pkg-config
             apt-get install -y apache2 apache2-dev libapr1-dev libaprutil1-dev
@@ -37,7 +33,6 @@ commands:
             apt-get install -y postgresql-client-10 postgresql-10 postgresql-server-dev-10
             /etc/init.d/postgresql start
             su - postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password 'postgres';\""
-            sudo find / -name pg_hba.conf
   setup_mysql:
     description: "setup mysql" 
     steps:
