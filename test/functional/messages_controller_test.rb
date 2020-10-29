@@ -147,9 +147,11 @@ class MessagesControllerTest < Redmine::ControllerTest
     end
 
     # author
-    assert_equal ['jsmith@somenet.foo'], mails[0].bcc
+    #assert_equal ['jsmith@somenet.foo'], mails[0].bcc
+    assert_includes bcc_email_addresses, 'jsmith@somenet.foo'
     # project member
-    assert_equal ['dlopper@somenet.foo'], mails[1].bcc
+    #assert_equal ['dlopper@somenet.foo'], mails[1].bcc
+    assert_includes bcc_email_addresses, 'dlopper@somenet.foo'
   end
 
   def test_get_edit
